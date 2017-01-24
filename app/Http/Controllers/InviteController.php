@@ -40,6 +40,7 @@ class InviteController extends Controller
         $invitee->name = $data["name"];
         $invitee->email = $data["email"];
         $invitee->attending = $data["attending"];
+        $invitee->address = $data["address"];
         $invitee->plusOne = $data["plusOne"];
         $invitee->plusOneName = $data["plusOneName"];
         $invitee->message = $data["message"];
