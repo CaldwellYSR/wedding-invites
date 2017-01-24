@@ -17,6 +17,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/api-invites/confirm', 'InviteController@getInvitee');
+Route::get('/api-invite/confirm', 'InviteController@getInvitee');
 
-Route::post('/api-invites/confirm', 'InviteController@rsvp');
+Route::patch('/api-invite/confirm', 'InviteController@rsvp');
