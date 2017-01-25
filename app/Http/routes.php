@@ -20,3 +20,7 @@ Route::get('/', function () {
 Route::get('/api-invite/confirm', 'InviteController@getInvitee');
 
 Route::patch('/api-invite/confirm', 'InviteController@rsvp');
+
+Route::auth();
+
+Route::get('/home', 'HomeController@index');
