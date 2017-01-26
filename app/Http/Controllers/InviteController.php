@@ -35,6 +35,15 @@ class InviteController extends Controller
             $this->updateRSVP($invite, $request->all());
         }
     }
+
+    public function create(Request $request) 
+    {
+        $invitation = new Invite;
+        $invitation->name = $request->input('name');
+        $invitation->email = $request->input('email');
+        $invitation->confirmationCode = $this->generateUniqueConfirmationCode();
+        $invitation->save();
+    }
      
     private function updateRSVP($invitee, $data) {
         $invitee->name = $data["name"];
@@ -45,6 +54,19 @@ class InviteController extends Controller
         $invitee->plusOneName = $data["plusOneName"];
         $invitee->message = $data["message"];
         $invitee->save();
+    }
+
+    private function generateUniqueConfirmationCode() {
+        $number = mt_rand(11111, 99999);
+        if ($this->confirmationCodeExists($number)) {
+            return $this->generateUniqueConfirmationCode();
+        }
+
+        return $number;
+    }
+
+    private function confirmationCodeExists($number) {
+        return Invite::where('confirmationCode', $number)->exists();
     }
      
 }

@@ -14,13 +14,16 @@
 use \Illuminate\Http\Request;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 Route::get('/api-invite/confirm', 'InviteController@getInvitee');
 
 Route::patch('/api-invite/confirm', 'InviteController@rsvp');
+Route::post('/api-invite/create', 'InviteController@create');
 
-Route::auth();
+Route::group(['prefix' => 'api'], function() {
+    Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
+    Route::post('authenticate', 'AuthenticateController@authenticate');
+});
 
-Route::get('/home', 'HomeController@index');
